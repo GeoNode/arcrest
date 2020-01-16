@@ -7,6 +7,11 @@ import json
 
 from .projections import projected, geographic
 
+try:
+    long, unicode, basestring
+except NameError:
+    long, unicode, basestring = int, str, str
+
 def pointlist(points, sr):
     """Convert a list of the form [[x, y] ...] to a list of Point instances
        with the given x, y coordinates."""
@@ -587,14 +592,14 @@ def fromJson(struct, attributes=None):
         return Envelope(*map(float, struct.split(',')))
     # Look for telltale attributes in the dict
     if isinstance(struct, dict):
-        for key, cls in indicative_attributes.iteritems():
+        for key, cls in indicative_attributes.items():
             if key in struct:
                 ret = cls.fromJson(dict((str(key), value)
-                                   for (key, value) in struct.iteritems()))
+                                   for (key, value) in struct.items()))
                 if attributes:
                     ret.attributes = dict((str(key.lower()), val) 
                                            for (key, val)
-                                           in attributes.iteritems())
+                                           in attributes.items())
                 return ret
     raise ValueError("Unconvertible to geometry")
 
@@ -638,7 +643,7 @@ def fromGeoJson(struct, attributes=None):
             if attributes:
                 if not hasattr(instance, 'attributes'):
                     instance.attributes = {}
-                for k, v in attributes.iteritems():
+                for k, v in attributes.items():
                     instance.attributes[k] = v
             i.append(instance)
         if i:

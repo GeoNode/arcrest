@@ -230,7 +230,7 @@ def manageservice(action):
             service = services[args.name]
         operation = (args.operation or '').lower()
         if operation == 'status':
-            for key, item in sorted(service.status.iteritems()):
+            for key, item in sorted(service.status.items()):
                 print("{0}: {1}".format(key, item))
         elif operation == 'start':
             with action("starting service"):

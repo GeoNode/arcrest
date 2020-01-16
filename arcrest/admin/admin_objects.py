@@ -13,6 +13,12 @@ __all__ = ['Admin', 'Folder', 'Services', 'Service',
            'Directory', 'Directories',
            'Clusters', 'Cluster']
 
+try:
+    long, unicode, basestring
+except NameError:
+    long, unicode, basestring = int, str, str
+
+
 class Admin(server.RestURL):
     """Represents the top level URL resource of the ArcGIS Server
        Administration API"""

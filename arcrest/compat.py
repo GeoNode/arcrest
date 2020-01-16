@@ -8,6 +8,11 @@ __all__ = ['cookielib', 'urllib2', 'HTTPError', 'URLError', 'urlsplit',
            'ensure_string', 'ensure_bytes', 'get_headers']
 
 try:
+    long, unicode, basestring
+except NameError:
+    long, unicode, basestring = int, str, str
+
+try:
     import cookielib
 except ImportError:
     import http.cookiejar as cookielib
@@ -43,9 +48,15 @@ except NameError:
     string_type = str
 
 def ensure_string(payload_bytes):
-    if isinstance(payload_bytes, bytes):
-        return payload_bytes.decode("utf-8")
-    return payload_bytes
+    import re
+    _payload = payload_bytes
+    try:
+        _payload = payload_bytes.decode("utf-8")
+    except:
+        pass
+    if re.match(r'b\'(.*)\'', _payload):
+        _payload = re.match(r'b\'(.*)\'', _payload).groups()[0]
+    return _payload
 
 def ensure_bytes(payload_string):
     if isinstance(payload_string, unicode):
