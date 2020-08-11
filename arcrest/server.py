@@ -5,7 +5,7 @@
    a hierarchy of endpoints or Uniform Resource Locators (URLs) for each GIS 
    service published with ArcGIS Server."""
 
-import cgi
+from six.moves.urllib import parse as cgi
 import json
 import mimetypes
 import os
