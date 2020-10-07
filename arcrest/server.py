@@ -763,12 +763,12 @@ class MapLayer(Layer):
     def parentLayer(self):
         if self._json_struct.get('parentLayer'):
             return self._get_subfolder("../%s/" %
-                                self._json_struct['parentLayer']['id'],
-                                MapLayer)
+                                       self._json_struct['parentLayer']['id'],
+                                       MapLayer)
         if self._json_struct.get('parentLayerId'):
             return self._get_subfolder("../%s/" %
-                                self._json_struct['parentLayerId'],
-                                MapLayer)
+                                       self._json_struct['parentLayerId'],
+                                       MapLayer)
     @property
     def subLayers(self):
         sub_layers = []
@@ -2377,9 +2377,14 @@ class GlobeLayer(Layer):
         return self._json_struct['fields']
     @property
     def parentLayer(self):
-        return self._get_subfolder("../%s/" % 
-                                   self._json_struct['parentLayer']['id'],
-                                   GlobeLayer)
+        if self._json_struct.get('parentLayer'):
+            return self._get_subfolder("../%s/" %
+                                       self._json_struct['parentLayer']['id'],
+                                       GlobeLayer)
+        if self._json_struct.get('parentLayerId'):
+            return self._get_subfolder("../%s/" %
+                                       self._json_struct['parentLayerId'],
+                                       GlobeLayer)
     @property
     def subLayers(self):
         return [self._get_subfolder("../%s/" % layer['id'], GlobeLayer)
