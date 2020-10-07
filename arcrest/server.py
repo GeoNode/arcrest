@@ -761,15 +761,25 @@ class MapLayer(Layer):
         return self._json_struct['copyrightText']
     @property
     def parentLayer(self):
-        return self._get_subfolder("../%s/" % 
-                                   self._json_struct['parentLayer']['id'],
-                                   MapLayer)
+        if self._json_struct.get('parentLayer'):
+            return self._get_subfolder("../%s/" %
+                                self._json_struct['parentLayer']['id'],
+                                MapLayer)
+        if self._json_struct.get('parentLayerId'):
+            return self._get_subfolder("../%s/" %
+                                self._json_struct['parentLayerId'],
+                                MapLayer)
     @property
     def subLayers(self):
-        return [self._get_subfolder("../%s/" % 
-                                    layer['parentLayer']['id'],
-                                    MapLayer)
-                for layer in self._json_struct['subLayers']]
+        sub_layers = []
+        for layer in self._json_struct['subLayers']:
+            if layer.get('parentLayer'):
+                value = self._get_subfolder("../%s/" % layer['parentLayer']['id'], MapLayer)
+                sub_layers.append(value)
+            if layer.get('parentLayerId'):
+                value = self._get_subfolder("../%s/" % layer['parentLayerId'], MapLayer)
+                sub_layers.append(value)
+        return sub_layers
     @property
     def minScale(self):
         return self._json_struct['minScale']
