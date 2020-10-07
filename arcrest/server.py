@@ -763,12 +763,12 @@ class MapLayer(Layer):
     def parentLayer(self):
         if self._json_struct.get('parentLayer'):
             return self._get_subfolder("../%s/" %
-                                   self._json_struct['parentLayer']['id'],
-                                   MapLayer)
+                                       self._json_struct['parentLayer']['id'],
+                                       MapLayer)
         if self._json_struct.get('parentLayerId'):
             return self._get_subfolder("../%s/" %
-                                   self._json_struct['parentLayerId'],
-                                   MapLayer)
+                                       self._json_struct['parentLayerId'],
+                                       MapLayer)
     @property
     def subLayers(self):
         sub_layers = []
@@ -776,11 +776,9 @@ class MapLayer(Layer):
             if layer.get('parentLayer'):
                 value = self._get_subfolder("../%s/" % layer['parentLayer']['id'], MapLayer)
                 sub_layers.append(value)
-
             if layer.get('parentLayerId'):
                 value = self._get_subfolder("../%s/" % layer['parentLayerId'], MapLayer)
                 sub_layers.append(value)
-
         return sub_layers
     @property
     def minScale(self):
@@ -2381,12 +2379,12 @@ class GlobeLayer(Layer):
     def parentLayer(self):
         if self._json_struct.get('parentLayer'):
             return self._get_subfolder("../%s/" %
-                                   self._json_struct['parentLayer']['id'],
-                                   GlobeLayer)
+                                       self._json_struct['parentLayer']['id'],
+                                       GlobeLayer)
         if self._json_struct.get('parentLayerId'):
             return self._get_subfolder("../%s/" %
-                                   self._json_struct['parentLayerId'],
-                                   GlobeLayer)
+                                       self._json_struct['parentLayerId'],
+                                       GlobeLayer)
     @property
     def subLayers(self):
         return [self._get_subfolder("../%s/" % layer['id'], GlobeLayer)
