@@ -6,7 +6,7 @@ import os
 
 setup(
     name='gn-arcrest',
-    version='10.5.3',
+    version='10.5.4',
     summary="ArcGIS for Server REST API wrapper",
     description="""Wrapper to the ArcGIS REST API, and a Python analogue to the Javascript APIs""",
     author="Esri",
