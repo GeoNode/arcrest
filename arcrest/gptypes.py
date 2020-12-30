@@ -5,6 +5,8 @@
 import datetime
 import json
 
+from six.moves import reduce
+
 from . import geometry
 
 try:
